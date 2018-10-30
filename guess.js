@@ -19,10 +19,19 @@ class GuessNumberGame {
    *
    */
   constructor(max, numTries) {
-    this.target = _.random(1, max);
-    this.numTries = numTries;
+    this.config = {
+      max: max,
+      numTries: numTries
+    };
+    this.reset();
+  }
+
+  reset() {
+    this.target = _.random(1, this.config.max);
+    this.numTries =this.config.numTries;
     this.history = [];
-    console.log(`Try to guess the number (1 to ${ max }). You have ${ numTries } guesses.`);
+    this.active = true;
+    console.log(`Try to guess the number (1 to ${ this.config.max }). You have ${ this.numTries } guesses.`);
   }
 
   /**
@@ -49,13 +58,17 @@ class GuessNumberGame {
     this.history.push(num);
     if(num === this.target) {
       console.log(`${ num } was the correct answer! Congratulations!`);
-      process.exit(0);
+      this.active = false;
+      console.log('Play again? (yes/no)');
+      return;
     }
 
     this.numTries--;
     if(this.numTries === 0) {
       console.log(`Sorry, you have no more tries remaining.`);
-      process.exit(0);
+      this.active = false;
+      console.log('Play again? (yes/no)');
+      return
     }
     let hint;
     if(num > this.target) {
@@ -71,6 +84,14 @@ class GuessNumberGame {
 let game = new GuessNumberGame(100, 10);
 
 input.on('line', function(line) {
-  game.guess(line);
+  if(game.active) {
+    game.guess(line);
+  } else {
+    if(line == 'yes') {
+      game.reset();
+    } else if(line == 'no'){
+      process.exit(0);
+    }
+  }
 
 });
