@@ -1,0 +1,22 @@
+{
+  "name": "guess-the-number",
+  "version": "1.0.0",
+  "description": "Guess the number game",
+  "main": "guess.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byoung2/guess-the-number.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/byoung2/guess-the-number/issues"
+  },
+  "homepage": "https://github.com/byoung2/guess-the-number#readme",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
